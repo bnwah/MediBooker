@@ -26,7 +26,7 @@ const MyProfile = () => {
 
       {/* If isEdit is true, then input field is provided. If false, then add user's name */}
       {
-        canEdit ? <input type="text" value={userData.name} onChange={e => setUserData(prev => ({ ...prev, name: e.target.name }))} />
+        canEdit ? <input type="text" value={userData.name} onChange={e => setUserData(prev => ({ ...prev, name: e.target.value }))} />
           : <p>{userData.name}</p>
       }
 
@@ -76,6 +76,15 @@ const MyProfile = () => {
             : <p>{userData.dob}</p>
           }
         </div>
+      </div>
+
+      <div>
+        {
+          // For editable fields, allows ability to change info and save it.
+          canEdit
+          ? <button onClick={()=>setCanEdit(false)}>Save information</button>
+          : <button onClick={()=>setCanEdit(true)}>Edit</button>
+        }
       </div>
 
 
