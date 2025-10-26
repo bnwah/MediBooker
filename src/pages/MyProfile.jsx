@@ -32,8 +32,8 @@ const MyProfile = () => {
 
       <hr className='bg-zinc-400 h-[1px] border-none' /> {/* Horizontal line divider */}
       <div>
-        <p>CONTACT INFORMATION</p>
-        <div>
+        <p className='text-neutral-500 underline mt-3'>CONTACT INFORMATION</p>
+        <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700'>
           <p>Email ID:</p>
           <p>{userData.email}</p>
           <p>Phone:</p>
