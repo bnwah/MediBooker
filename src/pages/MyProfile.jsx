@@ -34,22 +34,22 @@ const MyProfile = () => {
       <div>
         <p className='text-neutral-500 underline mt-3'>CONTACT INFORMATION</p>
         <div className='grid grid-cols-[1fr_3fr] gap-y-2.5 mt-3 text-neutral-700'>
-          <p>Email ID:</p>
-          <p>{userData.email}</p>
-          <p>Phone:</p>
+          <p className='font-medium'>Email ID:</p>
+          <p className='text-blue-500'>{userData.email}</p>
+          <p className='font-medium'>Phone:</p>
           {
-            canEdit ? <input type="text" value={userData.phone} onChange={e => setUserData(prev => ({ ...prev, phone: e.target.value }))} />
-              : <p>{userData.phone}</p>
+            canEdit ? <input className='bg-gray-100 max-w-52' type="text" value={userData.phone} onChange={e => setUserData(prev => ({ ...prev, phone: e.target.value }))} />
+              : <p className='text-blue-400'>{userData.phone}</p>
           }
-          <p>Address:</p>
+          <p className='font-medium'>Address:</p>
           {
             canEdit
               ? <p>
-                <input onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line1: e.target.value } }))} value={userData.address.line1} type="text" />
+                <input className='bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line1: e.target.value } }))} value={userData.address.line1} type="text" />
                 <br />
-                <input onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line2: e.target.value } }))} value={userData.address.line2} type="text" />
+                <input className='bg-gray-50' onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line2: e.target.value } }))} value={userData.address.line2} type="text" />
               </p>
-              : <p>
+              : <p className='text-gray-500'>
                 {userData.address.line1}
                 <br />
                 {userData.address.line2}
