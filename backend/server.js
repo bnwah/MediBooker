@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import connectDB from './config/mongodb.js'
+import connectCloudinary from './config/cloudinary.js'
 
 /* 
 This file is the entry point of the backend server.
@@ -14,6 +15,7 @@ It's responsible for: 1. Starting an Express app, 2. Listening for HTTP requests
 const app = express()           // Create an Express app instance
 const port = process.env.PORT || 4000       // Uses an available port or 4000 if none is available
 connectDB()
+connectCloudinary()
 
 // Middlewares
 app.use(express.json())     // Allows app to receive JSON
