@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { assets } from '../../assets/assets'
+import { useContext } from 'react'
+import { AdminContext } from '../../context/AdminContext'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const AddDoctor = () => {
 
@@ -15,8 +19,50 @@ const AddDoctor = () => {
   const [address1, setAddress1] = useState('')
   const [address2, setAddress2] = useState('')
 
+  const { backendUrl, adminToken } = useContext(AdminContext)
+
   const onSubmitHandler = async(event) => {
     event.preventDefault()    // whenever form is submitted, it will not reload pg as there's no need to!
+
+    try {
+
+      if (!docImg) {
+        return toast.error('Image not selected!')
+      }
+
+      const formData = new FormData()
+
+      formData.append('image', docImg)
+      formData.append('name', name)
+      formData.append('email', email)
+      formData.append('password', password)
+      formData.append('experience', experience)
+      formData.append('fees', Number(fees))
+      formData.append('about', about)
+      formData.append('speciality', speciality)
+      formData.append('degree', degree)
+      formData.append('address', JSON.stringify({line1: address1, line2: address2}))
+
+      // Console log formdata
+      formData.forEach((value, key) => {
+        console.log(`${key} : ${value}`);
+      })
+
+      const {data} = await axios.post(
+        backendUrl + '/api/admin/add-doctor', 
+        formData, 
+        {headers: { adminToken } 
+      })
+
+      if (data.success) {
+        toast.success(data.message)
+      } else {
+        toast.error(data.message)
+      }
+
+    } catch (error) {
+
+    }
   }
 
   return (
