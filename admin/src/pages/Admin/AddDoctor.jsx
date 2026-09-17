@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { assets } from '../../assets/assets'
 import { useContext } from 'react'
 import { AdminContext } from '../../context/AdminContext'
@@ -20,6 +20,8 @@ const AddDoctor = () => {
   const [address2, setAddress2] = useState('')
 
   const { backendUrl, adminToken } = useContext(AdminContext)
+
+  const scrollContainerRef = useRef(null)
 
   const onSubmitHandler = async(event) => {
     event.preventDefault()    // whenever form is submitted, it will not reload pg as there's no need to!
@@ -66,6 +68,8 @@ const AddDoctor = () => {
         setAbout('')
         setFees('')
 
+        scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+
       } else {
         toast.error(data.message)
       }
@@ -81,7 +85,7 @@ const AddDoctor = () => {
 
       <p className='mb-3 text-lg font-medium'>Add Doctor</p>
 
-      <div className='bg-wide px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
+      <div ref={scrollContainerRef} className='bg-wide px-8 py-8 border rounded w-full max-w-4xl max-h-[80vh] overflow-y-scroll'>
         <div className='flex items-center gap-4 mb-8 text-gray-500'>
           <label htmlFor="doc-img">
             <img className='w-16 bg-gray-100 rounded-full cursor-pointer' src={docImg ? URL.createObjectURL(docImg) : assets.upload_area} alt="" /> {/* creates a temporary URL for the uploaded img + uses that URL to display the img */}
