@@ -2,6 +2,7 @@ import express from 'express'
 import { addDoctor, allDoctors, loginAdmin } from '../controllers/adminController.js'
 import upload from '../middlewares/multer.js'
 import authAdmin from '../middlewares/authAdmin.js'
+import { changeAvailability } from '../controllers/doctorController.js'
 
 const adminRouter = express.Router()
 
@@ -14,5 +15,8 @@ adminRouter.post('/login', loginAdmin)
 
 // This endpoint is for getting all doctors using authAdmin as the middleware that authenticates the admin to access this API endpoint
 adminRouter.post('/all-doctors', authAdmin, allDoctors)
+
+// This endpoint is for changing the availability of a doctor
+adminRouter.post('/change-availability', authAdmin, changeAvailability)
 
 export default adminRouter

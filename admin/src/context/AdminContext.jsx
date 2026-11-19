@@ -26,12 +26,28 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    const changeAvailability = async (docId) => {
+        try {
+
+            const { data } = await axios.post(backendUrl + '/api/admin/change-availability', {docId}, {headers: {adminToken}})
+            if (data.success) {
+                toast.success(data.message)
+                getAllDoctors()
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const value = {
         // Define any state or functions you want to provide to the context which will be shared across components
         // The point of the context is to provide a global store for certain values that can be accessed by any component in the app
         adminToken, setAToken,
         backendUrl, doctors, 
-        getAllDoctors
+        getAllDoctors, changeAvailability
     }
 
     return (
